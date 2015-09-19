@@ -6,10 +6,9 @@ var http = require('http');
 
 
 var requestListener = function (cReq, cRes) {
-        
-        var slug ="montreal";
-       // var slug = req.url.substring(1);
 
+        var slug = cReq.url.substring(1);
+        if (cReq.url !== "/favicon.ico"){
         console.log(cReq);
         var locationRquested ="https://maps.googleapis.com/maps/api/geocode/json?address=" + slug + "&key=AIzaSyDtEGHKLUczLAayBS3ZPHMr5AgHpREqWYQ";
         request(locationRquested, function(err, res, body) {
@@ -18,13 +17,12 @@ var requestListener = function (cReq, cRes) {
                 var x = googleInfo.results[0].geometry.location.lat;
 
                 var y = googleInfo.results[0].geometry.location.lng;
-
                 
                 cRes.writeHead(200);
-                cRes.end("Your location:"+x+y);
-
-        })
-    
+                cRes.end("Your location: "+x+y);
+        
+        });
+        }
 }
 
 var server = http.createServer(requestListener);
