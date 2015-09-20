@@ -16,6 +16,7 @@ var requestListener = function (cReq, cRes) {
                                 cRes.end(cachedLocation[i]+ ". This is a cached response");
                         }
                         else {
+                                cachedRequest.push(cReq.url.substring(1));
                                 var locationRquested ="https://maps.googleapis.com/maps/api/geocode/json?address=" + slug + "&key=AIzaSyDtEGHKLUczLAayBS3ZPHMr5AgHpREqWYQ";
                                 request(locationRquested, function(err, res, body) {
                                         var googleInfo = JSON.parse(body);
